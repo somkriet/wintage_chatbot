@@ -307,8 +307,16 @@ function receivedMessage(event) {
         sendAccountLinking(senderID);
         break;
 
+      case 'test':
+        sendtest(senderID);
+        break;
+
+      case 'มีกางเกงกี่แบบ':
+        sendproduct(senderID);
+        break;
+
       default:
-        sendTextMessage(senderID, "");//messageText
+        sendTextMessage(senderID, "" );//messageText
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
@@ -365,6 +373,7 @@ function receivedPostback(event) {
   // let them know it was successful
   sendTextMessage(senderID, "Postback called");
 }
+
 
 /*
  * Message Read Event
@@ -796,6 +805,56 @@ function sendAccountLinking(recipientId) {
 
   callSendAPI(messageData);
 }
+
+
+////////////////////////////////////
+
+function sendtest(recipientId){
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: "ทดสอบระบบแชทบอทร้าน Wintage jeans",
+    }
+  };  
+
+  callSendAPI(messageData);
+
+}
+
+function sendproduct(recipientId){
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: "ทางร้านมีกางเกงให้เลือก 3 แบบค่ะ",
+      quick_replies: [
+        {
+          "content_type":"text",
+          "title":"กางเกงยีนส์ขายาว",
+          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_ACTION"
+        },
+        {
+          "content_type":"text",
+          "title":"กางเกงยีนส์ขาสั้น",
+          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_COMEDY"
+        },
+        {
+          "content_type":"text",
+          "title":"กระโปรงยีนส์",
+          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_DRAMA"
+        }
+      ]
+    }
+  };  
+
+  callSendAPI(messageData);
+
+}
+
+///////////////////////////////////
 
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll 
